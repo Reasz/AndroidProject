@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashScreenFragment2">
+    <fragment
+        android:id="@+id/splashScreenFragment2"
+        android:name="com.example.foodproject.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment2_to_mainScreenFragment2"
+            app:destination="@id/mainScreenFragment2" />
+        <action
+            android:id="@+id/action_splashScreenFragment2_to_profileScreenFragment"
+            app:destination="@id/profileScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailScreenFragment2"
+        android:name="com.example.foodproject.DetailScreenFragment"
+        android:label="fragment_detail_screen"
+        tools:layout="@layout/fragment_detail_screen" />
+    <fragment
+        android:id="@+id/mainScreenFragment2"
+        android:name="com.example.foodproject.MainScreenFragment"
+        android:label="fragment_main_screen"
+        tools:layout="@layout/fragment_main_screen" >
+        <action
+            android:id="@+id/action_mainScreenFragment2_to_detailScreenFragment2"
+            app:destination="@id/detailScreenFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileScreenFragment"
+        android:name="com.example.foodproject.ProfileScreenFragment"
+        android:label="fragment_profile_screen"
+        tools:layout="@layout/fragment_profile_screen" />
+</navigation>
