@@ -3,5 +3,6 @@
     <string name="splash_screen_fragment">Splash Screen</string>
     <string name="main_screen_fragment">Main Screen</string>
     <string name="detail_screen_fragment">Detail Screen</string>
+    <string name="profile_screen_fragment">Profile Screen</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
