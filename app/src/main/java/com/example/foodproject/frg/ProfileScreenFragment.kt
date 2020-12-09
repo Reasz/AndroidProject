@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodproject.R
+import com.example.foodproject.RestaurantAdapter
+import com.example.foodproject.RestaurantItem
+import kotlinx.android.synthetic.main.fragment_main_screen.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +39,31 @@ class ProfileScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_screen, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile_screen, container, false)
+
+        val exampleList = generateDummyList(10)
+
+        view.mainRecyclerView.adapter = RestaurantAdapter(exampleList)
+        view.mainRecyclerView.layoutManager = LinearLayoutManager(activity)
+        view.mainRecyclerView.setHasFixedSize(true) /////////////// */
+
+        return view
+    }
+
+    //TODO: EZT KISZEDNI
+    private fun generateDummyList(size: Int): List<RestaurantItem> {
+        val list = ArrayList<RestaurantItem>()
+        for (i in 0 until size) {
+            val drawable = when (i % 3) {
+                0 -> R.drawable.ic_home
+                1 -> R.drawable.ic_list_bulleted
+                else -> R.drawable.ic_profile
+            }
+            val item = RestaurantItem(drawable, "Item $i", "Line 2", "Price")
+            //list.add(item)
+            list += item
+        }
+        return list
     }
 
     companion object {
