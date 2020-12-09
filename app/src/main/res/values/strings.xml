@@ -12,4 +12,9 @@
     <string name="profile_phone_number">Phone number</string>
     <string name="profile_email">Email address</string>
     <string name="profile_list_of_favorite_restaurants">Favorite restaurants</string>
+
+    <string name="restaurant_title">Name of the restaurant</string>
+    <string name="restaurant_address">Address of the restaurant</string>
+    <string name="restaurant_price">Price</string>
+    <string name="restaurant_picture">Picture of the restaurant</string>
 </resources>

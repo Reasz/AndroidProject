@@ -6,6 +6,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.fragment_main_screen.*
 
 class MainActivity : AppCompatActivity() {
     private var bottomNavigationView:BottomNavigationView? = null
