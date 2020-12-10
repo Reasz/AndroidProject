@@ -50,16 +50,11 @@ class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener 
         val yourImageView = view.findViewById(R.id.ProfileImageImageView) as ImageView
 
         // sample image url
-        val imageUrl = "http://is3-ssl.mzstatic.com/image/thumb/Purple117/v4/ed/1d/9c/ed1d9c93-3af6-c4f2-e29a-14e96ad83f24/source/256x256bb.jpg"
-        val imageUrlPh = "D:\\BUMM\\can\\boss_dog.jpg"
-        val placeholderImage = R.drawable.ic_home
+        val imageUrl = "https://is3-ssl.mzstatic.com/image/thumb/Purple117/v4/ed/1d/9c/ed1d9c93-3af6-c4f2-e29a-14e96ad83f24/source/256x256bb.jpg"
 
         // Glide image loading
-        Glide.with(requireActivity())
-            .load(imageUrlPh)
-            .centerCrop()
-            .placeholder(placeholderImage)
-            .error(Glide.with(requireContext()).load(R.drawable.ic_list_bulleted))
+        Glide.with(requireContext())
+            .load(imageUrl)
             .into(yourImageView)
 
         view.mainRecyclerView.adapter = RestaurantAdapter(exampleList, this)
