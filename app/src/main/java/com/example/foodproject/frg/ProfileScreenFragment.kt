@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.foodproject.R
 import com.example.foodproject.RestaurantAdapter
 import com.example.foodproject.RestaurantItem
@@ -43,6 +45,22 @@ class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener 
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile_screen, container, false)
+
+        // get reference to your image target
+        val yourImageView = view.findViewById(R.id.ProfileImageImageView) as ImageView
+
+        // sample image url
+        val imageUrl = "http://is3-ssl.mzstatic.com/image/thumb/Purple117/v4/ed/1d/9c/ed1d9c93-3af6-c4f2-e29a-14e96ad83f24/source/256x256bb.jpg"
+        val imageUrlPh = "D:\\BUMM\\can\\boss_dog.jpg"
+        val placeholderImage = R.drawable.ic_home
+
+        // Glide image loading
+        Glide.with(requireActivity())
+            .load(imageUrlPh)
+            .centerCrop()
+            .placeholder(placeholderImage)
+            .error(Glide.with(requireContext()).load(R.drawable.ic_list_bulleted))
+            .into(yourImageView)
 
         view.mainRecyclerView.adapter = RestaurantAdapter(exampleList, this)
         view.mainRecyclerView.layoutManager = LinearLayoutManager(activity)
