@@ -1,17 +1,17 @@
 package com.example.foodproject
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
 import kotlinx.android.synthetic.main.restaurant_item.view.*
 
 
-class RestaurantAdapter (private val restaurantList: List<RestaurantItem>)
+class RestaurantAdapter (private val restaurantList: List<RestaurantItem>,
+                         private val listener: OnItemClickListener
+                         )
     : RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
@@ -19,7 +19,7 @@ class RestaurantAdapter (private val restaurantList: List<RestaurantItem>)
 
         return  RestaurantViewHolder(itemView)
     }
-
+    // mindig ujrahivodik
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
         val currentItem = restaurantList[position]
 
@@ -37,7 +37,8 @@ class RestaurantAdapter (private val restaurantList: List<RestaurantItem>)
     }
 
 
-    class RestaurantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class RestaurantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+    View.OnClickListener{
         val imageView: ImageView = itemView.restaurantImageView // same as findViewById(...
         val textViewTitle: TextView = itemView.restaurantTitleTextView
         val textViewAddress: TextView = itemView.restaurantAddressTextView
@@ -45,5 +46,23 @@ class RestaurantAdapter (private val restaurantList: List<RestaurantItem>)
         /*val imageView: ImageView = itemView.findViewById(R.id.restaurantImageView)
         val textView1: TextView = itemView.findViewById(R.id.restaurantTitleTextView)
         val textView2: TextView = itemView.findViewById(R.id.restaurantAddressTextView)*/
+
+        init
+        {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val position:Int = adapterPosition
+            if (position != RecyclerView.NO_POSITION)
+            {
+                listener.onItemClick(position)
+            }
+        }
+    }
+
+    interface OnItemClickListener
+    {
+        fun onItemClick(position: Int)
     }
 }
