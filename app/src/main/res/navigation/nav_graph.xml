@@ -11,11 +11,8 @@
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
-            android:id="@+id/action_splashScreenFragment_to_mainScreenFragment2"
-            app:destination="@id/mainScreenFragment" />
-        <action
-            android:id="@+id/action_splashScreenFragment_to_profileScreenFragment2"
-            app:destination="@id/profileScreenFragment" />
+            android:id="@+id/action_splashScreenFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailScreenFragment"
@@ -30,10 +27,34 @@
         <action
             android:id="@+id/action_mainScreenFragment2_to_detailScreenFragment"
             app:destination="@id/detailScreenFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_profileScreenFragment"
+            app:destination="@id/profileScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileScreenFragment"
         android:name="com.example.foodproject.frg.ProfileScreenFragment"
         android:label="fragment_profile_screen"
         tools:layout="@layout/fragment_profile_screen" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.foodproject.frg.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment2"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mainScreenFragment2"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.foodproject.frg.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_mainScreenFragment2"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
 </navigation>
