@@ -1,4 +1,4 @@
-/*package com.example.foodproject.data
+package com.example.foodproject.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -9,4 +9,4 @@ data class User (
     val id: Int,
     val userName: String,
     val password: String
-)*/
+)

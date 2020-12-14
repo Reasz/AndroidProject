@@ -1,4 +1,4 @@
-/*package com.example.foodproject.data
+package com.example.foodproject.data
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -21,8 +21,8 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
     // Dispatchers.IO so it will be run in a background/worker thread
     fun addUser(user: User){
         viewModelScope.launch(Dispatchers.IO) {
-            ///
+            repository.addUser(user)
         }
     }
 
-}*/
+}

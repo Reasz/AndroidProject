@@ -1,4 +1,4 @@
-/*package com.example.foodproject.data
+package com.example.foodproject.data
 
 import android.content.Context
 import androidx.room.Database
@@ -32,4 +32,4 @@ abstract class UserDatabase: RoomDatabase(){
         }
     }
 
-}*/
+}
