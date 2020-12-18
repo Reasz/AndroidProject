@@ -20,7 +20,11 @@
         android:id="@+id/detailScreenFragment"
         android:name="com.example.foodproject.frg.DetailScreenFragment"
         android:label="fragment_detail_screen"
-        tools:layout="@layout/fragment_detail_screen" />
+        tools:layout="@layout/fragment_detail_screen" >
+        <argument
+            android:name="selectedRestaurant"
+            app:argType="com.example.foodproject.RestaurantItem" />
+    </fragment>
     <fragment
         android:id="@+id/mainScreenFragment"
         android:name="com.example.foodproject.frg.MainScreenFragment"
@@ -37,7 +41,11 @@
         android:id="@+id/profileScreenFragment"
         android:name="com.example.foodproject.frg.ProfileScreenFragment"
         android:label="fragment_profile_screen"
-        tools:layout="@layout/fragment_profile_screen" />
+        tools:layout="@layout/fragment_profile_screen" >
+        <action
+            android:id="@+id/action_profileScreenFragment_to_detailScreenFragment"
+            app:destination="@id/detailScreenFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.foodproject.frg.LoginFragment"

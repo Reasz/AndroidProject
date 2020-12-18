@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodproject.R
 import com.example.foodproject.RestaurantAdapter
@@ -15,30 +16,19 @@ import com.example.foodproject.RestaurantItem
 import kotlinx.android.synthetic.main.fragment_main_screen.*
 import kotlinx.android.synthetic.main.fragment_main_screen.view.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//private const val ARG_PARAM1 = "param1"
-//private const val ARG_PARAM2 = "param2"
-
 /**
  * A simple [Fragment] subclass.
  * Use the [MainScreenFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class MainScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener {
-    // TODO: Rename and change types of parameters
-    //private var param1: String? = null
-    //private var param2: String? = null
+
+    // creating a list of Tea objects to be displayed inside the recycler view
+    private val exampleList = generateDummyList(500)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /*arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }*/
     }
-
-    private val exampleList = generateDummyList(500)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,17 +37,19 @@ class MainScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_main_screen, container, false)
 
-        view.mainRecyclerView.adapter = RestaurantAdapter(exampleList,this)
+        // recycler view
+        view.mainRecyclerView.adapter = RestaurantAdapter(exampleList, this)
         view.mainRecyclerView.layoutManager = LinearLayoutManager(activity)
-        view.mainRecyclerView.setHasFixedSize(true) /////////////// */
+        view.mainRecyclerView.setHasFixedSize(true)
 
         return view
     }
 
     override fun onItemClick(position: Int) {
-        //Toast.makeText(this, "Item $position clicked", Toast.LENGTH_SHORT)
-        val clickedItem:RestaurantItem = exampleList[position]
-        view?.findNavController()?.navigate(R.id.detailScreenFragment)
+        val clickedItem: RestaurantItem = exampleList[position]
+        val action =
+            MainScreenFragmentDirections.actionMainScreenFragment2ToDetailScreenFragment(clickedItem)
+        findNavController().navigate(action)
     }
 
     //TODO: EZT KISZEDNI
@@ -69,29 +61,10 @@ class MainScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener {
                 1 -> R.drawable.ic_list_bulleted
                 else -> R.drawable.ic_profile
             }
-            val item = RestaurantItem(drawable, "Item $i", "Line 2", "Price")
+            val item = RestaurantItem(drawable, "Title $i", "Address $i", "Price $i")
             list += item
         }
         return list
     }
 
-    /*companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MainScreenFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MainScreenFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }*/
 }
