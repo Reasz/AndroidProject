@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.restaurant_item.view.*
 
 
@@ -23,8 +24,14 @@ class RestaurantAdapter (private val restaurantList: List<RestaurantItem>,
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
         val currentItem = restaurantList[position]
 
-        holder.imageView.setImageResource(currentItem.imageResource)
-        holder.textViewTitle.text = currentItem.title
+        // Glide image loading
+        Glide.with(holder.view)
+            .load(currentItem.image_url)
+            .placeholder(R.mipmap.milky_way)
+            .into(holder.imageView)
+
+        //holder.imageView.setImageResource(R.drawable.ic_list_bulleted)
+        holder.textViewTitle.text =  currentItem.name
         holder.textViewAddress.text = currentItem.address
         holder.textViewPrice.text = currentItem.price
     }
@@ -43,6 +50,7 @@ class RestaurantAdapter (private val restaurantList: List<RestaurantItem>,
         val textViewTitle: TextView = itemView.restaurantTitleTextView
         val textViewAddress: TextView = itemView.restaurantAddressTextView
         val textViewPrice: TextView = itemView.restaurantPriceTextView
+        val view = itemView
         /*val imageView: ImageView = itemView.findViewById(R.id.restaurantImageView)
         val textView1: TextView = itemView.findViewById(R.id.restaurantTitleTextView)
         val textView2: TextView = itemView.findViewById(R.id.restaurantAddressTextView)*/

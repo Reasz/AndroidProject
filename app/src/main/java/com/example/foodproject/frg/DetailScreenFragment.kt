@@ -37,12 +37,9 @@ class DetailScreenFragment : Fragment() {
         // get reference to your image target
         val yourImageView = view.findViewById(R.id.restaurantDetailImageView) as ImageView
 
-        // sample image url
-        val imageUrl = "https://is3-ssl.mzstatic.com/image/thumb/Purple117/v4/ed/1d/9c/ed1d9c93-3af6-c4f2-e29a-14e96ad83f24/source/256x256bb.jpg"
-
         // Glide image loading
         Glide.with(requireContext())
-            .load(imageUrl)
+            .load(R.mipmap.milky_way)
             .into(yourImageView)
 
         return view
@@ -50,7 +47,7 @@ class DetailScreenFragment : Fragment() {
 
     private fun initialise(view:View)
     {
-        view.restaurantDetailTitleTextView.text = args.selectedRestaurant.title
+        view.restaurantDetailTitleTextView.text = args.selectedRestaurant.name
         view.restaurantDetailPriceTextView.text = args.selectedRestaurant.price
         view.restaurantDetailAddressTextView.text = args.selectedRestaurant.address
     }

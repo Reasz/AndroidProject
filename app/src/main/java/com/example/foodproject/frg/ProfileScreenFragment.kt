@@ -38,13 +38,9 @@ class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener 
         // get reference to your image target
         val yourImageView = view.findViewById(R.id.ProfileImageImageView) as ImageView
 
-        // sample image url
-        val imageUrl =
-            "https://is3-ssl.mzstatic.com/image/thumb/Purple117/v4/ed/1d/9c/ed1d9c93-3af6-c4f2-e29a-14e96ad83f24/source/256x256bb.jpg"
-
         // Glide image loading
         Glide.with(requireContext())
-            .load(imageUrl)
+            .load(R.mipmap.stars)
             .into(yourImageView)
 
         view.mainRecyclerView.adapter = RestaurantAdapter(exampleList, this)
@@ -73,8 +69,9 @@ class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener 
                 1 -> R.drawable.ic_list_bulleted
                 else -> R.drawable.ic_profile
             }
-            val item = RestaurantItem(drawable, "Item $i", "Line 2", "Price")
-            //list.add(item)
+            val item = RestaurantItem(drawable, "Title $i", "Address $i", "City: $i", "State: $i", "Area: $i",
+                "Postal code $i", "Country: $i", 0,0,0, "Price $i",
+                "Reserve url $i","mobile_reserve_url $i", "Image url $i" )
             list += item
         }
         return list

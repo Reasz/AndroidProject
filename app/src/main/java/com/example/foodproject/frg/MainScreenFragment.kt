@@ -61,8 +61,11 @@ class MainScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener {
                 1 -> R.drawable.ic_list_bulleted
                 else -> R.drawable.ic_profile
             }
-            val item = RestaurantItem(drawable, "Title $i", "Address $i", "Price $i")
+            val item = RestaurantItem(drawable, "Title $i", "Address $i", "City: $i", "State: $i", "Area: $i",
+                "Postal code $i", "Country: $i", 0,0,0, "Price $i",
+                "Reserve url $i","mobile_reserve_url $i", "Image url $i" )
             list += item
+
         }
         return list
     }
