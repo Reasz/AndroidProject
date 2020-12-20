@@ -7,8 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.foodproject.R
+import com.example.foodproject.data.UserViewModel
+import com.example.foodproject.util.Constants.Companion.userID
 
 class LoginFragment : Fragment() {
 
@@ -16,6 +21,7 @@ class LoginFragment : Fragment() {
     private lateinit var registerButton: Button
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
+    private lateinit var mUserViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,18 +44,25 @@ class LoginFragment : Fragment() {
                 usernameText.isEmpty() -> {
                     usernameEditText.error = "Username required"
                 }
-                usernameText.length < 3 -> {
-                    usernameEditText.error = "Username must be at least 3 letters"
-                }
                 passwordText.isEmpty() -> {
                     passwordEditText.error = "Password required"
                 }
-                passwordText.length < 4 -> {
-                    passwordEditText.error = "Password must be at least 4 letters"
-                }
                 else -> {
-                    Navigation.findNavController(view)
-                        .navigate(R.id.action_loginFragment_to_mainScreenFragment2)
+                    var found = false
+                    mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+                    mUserViewModel.readAllData.observe(viewLifecycleOwner, Observer { user ->
+                        user.forEach{
+                            if (it.userName == usernameText && it.password == passwordText) {
+                                userID = it.id
+                                found = true
+                                Navigation.findNavController(view)
+                                    .navigate(R.id.action_loginFragment_to_mainScreenFragment2)
+                            }
+                        }
+                    })
+                    if (!found) {
+                        Toast.makeText(requireContext(), "Wrong username or password", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
