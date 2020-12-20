@@ -28,12 +28,12 @@ import kotlinx.android.synthetic.main.fragment_main_screen.view.*
  */
 class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener {
 
-    private val exampleList = generateDummyList(10)
     private lateinit var mUserViewModel: UserViewModel
     private lateinit var userNameTextView: TextView
     private lateinit var addressTextView: TextView
     private lateinit var phoneNumberTextView: TextView
     private lateinit var emailTextView: TextView
+    private val restaurantAdapter by lazy { RestaurantAdapter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,18 +54,11 @@ class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener 
             .load(R.mipmap.stars)
             .into(yourImageView)
 
-        userNameTextView = view.findViewById(R.id.ProfileNameTextView)
-        addressTextView = view.findViewById(R.id.ProfileAddressTextView)
-        phoneNumberTextView = view.findViewById(R.id.PhoneNumberTextView)
-        emailTextView = view.findViewById(R.id.ProfileEmailTextView)
-
-        view.mainRecyclerView.adapter = RestaurantAdapter(this)
-        view.mainRecyclerView.layoutManager = LinearLayoutManager(activity)
-        view.mainRecyclerView.setHasFixedSize(true)
+        initialise(view)
 
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         mUserViewModel.readAllData.observe(viewLifecycleOwner, Observer { user ->
-            user.forEach{
+            user.forEach {
                 if (it.id == userID) {
                     userNameTextView.text = it.userName
                     addressTextView.text = it.address
@@ -75,12 +68,16 @@ class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener 
             }
         })
 
+        val exampleList = generateDummyList(500)
+        restaurantAdapter.setData(exampleList)
+
+        setupRecyclerView(view)
+
         return view
     }
 
     override fun onItemClick(position: Int) {
-        //Toast.makeText(this, "Item $position clicked", Toast.LENGTH_SHORT)
-        val clickedItem: RestaurantItem = exampleList[position]
+        val clickedItem: RestaurantItem = restaurantAdapter.getDataAt(position)
         val action =
             ProfileScreenFragmentDirections.actionProfileScreenFragmentToDetailScreenFragment(
                 clickedItem
@@ -88,7 +85,20 @@ class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener 
         findNavController().navigate(action)
     }
 
-    //TODO: EZT KISZEDNI
+    private fun initialise(view: View) {
+        userNameTextView = view.findViewById(R.id.ProfileNameTextView)
+        addressTextView = view.findViewById(R.id.ProfileAddressTextView)
+        phoneNumberTextView = view.findViewById(R.id.PhoneNumberTextView)
+        emailTextView = view.findViewById(R.id.ProfileEmailTextView)
+    }
+
+    private fun setupRecyclerView(view: View) {
+        view.mainRecyclerView.adapter = restaurantAdapter
+        view.mainRecyclerView.layoutManager = LinearLayoutManager(activity)
+        view.mainRecyclerView.setHasFixedSize(true)
+    }
+
+    // TODO: remove function after it's not needed anymore
     private fun generateDummyList(size: Int): List<RestaurantItem> {
         val list = ArrayList<RestaurantItem>()
         for (i in 0 until size) {
@@ -97,9 +107,11 @@ class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener 
                 1 -> R.drawable.ic_list_bulleted
                 else -> R.drawable.ic_profile
             }
-            val item = RestaurantItem(drawable, "Title $i", "Address $i", "City: $i", "State: $i", "Area: $i",
-                "Postal code $i", "Country: $i", 0,0,0, "Price $i",
-                "Reserve url $i","mobile_reserve_url $i", "Image url $i" )
+            val item = RestaurantItem(
+                drawable, "Title $i", "Address $i", "City: $i", "State: $i", "Area: $i",
+                "Postal code $i", "Country: $i", 0, 0, 0, "Price $i",
+                "Reserve url $i", "mobile_reserve_url $i", "Image url $i"
+            )
             list += item
         }
         return list
