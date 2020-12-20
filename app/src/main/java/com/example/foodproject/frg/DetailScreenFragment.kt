@@ -1,16 +1,17 @@
 package com.example.foodproject.frg
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.foodproject.R
 import kotlinx.android.synthetic.main.fragment_detail_screen.view.*
-import kotlinx.android.synthetic.main.restaurant_item.view.*
 
 
 /**
@@ -42,6 +43,21 @@ class DetailScreenFragment : Fragment() {
             .load(R.mipmap.milky_way)
             .into(yourImageView)
 
+        view.restaurantDetailPhoneTextView.setOnClickListener{
+            val callIntent = Intent(Intent.ACTION_DIAL)
+            callIntent.data = Uri.parse("tel:${view.restaurantDetailPhoneTextView.text}")
+            startActivity(callIntent)
+        }
+
+        val ln = args.selectedRestaurant.lng
+        val lat = args.selectedRestaurant.lat
+
+        view.restaurantDetailAddressTextView.setOnClickListener{
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://www.google.com/maps/search/?api=1&query=$lat,$ln")
+            startActivity(intent)
+        }
+
         return view
     }
 
@@ -50,6 +66,8 @@ class DetailScreenFragment : Fragment() {
         view.restaurantDetailTitleTextView.text = args.selectedRestaurant.name
         view.restaurantDetailPriceTextView.text = args.selectedRestaurant.price
         view.restaurantDetailAddressTextView.text = args.selectedRestaurant.address
+        view.restaurantDetailCityTextView.text = args.selectedRestaurant.city
+        view.restaurantDetailPhoneTextView.text = args.selectedRestaurant.phone.toString()
     }
 
 }
