@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.foodproject.R
 import com.example.foodproject.data.UserViewModel
+import com.example.foodproject.util.Constants.Companion.userID
 
 class LoginFragment : Fragment() {
 
@@ -50,6 +51,7 @@ class LoginFragment : Fragment() {
                     mUserViewModel.readAllData.observe(viewLifecycleOwner, Observer { user ->
                         user.forEach{
                             if (it.userName == usernameText && it.password == passwordText) {
+                                userID = it.id
                                 Navigation.findNavController(view)
                                     .navigate(R.id.action_loginFragment_to_mainScreenFragment2)
                             }

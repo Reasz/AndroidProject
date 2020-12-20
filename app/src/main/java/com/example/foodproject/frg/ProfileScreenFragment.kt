@@ -18,6 +18,7 @@ import com.example.foodproject.R
 import com.example.foodproject.RestaurantAdapter
 import com.example.foodproject.RestaurantItem
 import com.example.foodproject.data.UserViewModel
+import com.example.foodproject.util.Constants.Companion.userID
 import kotlinx.android.synthetic.main.fragment_main_screen.view.*
 
 /**
@@ -30,6 +31,9 @@ class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener 
     private val exampleList = generateDummyList(10)
     private lateinit var mUserViewModel: UserViewModel
     private lateinit var userNameTextView: TextView
+    private lateinit var addressTextView: TextView
+    private lateinit var phoneNumberTextView: TextView
+    private lateinit var emailTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +55,9 @@ class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener 
             .into(yourImageView)
 
         userNameTextView = view.findViewById(R.id.ProfileNameTextView)
+        addressTextView = view.findViewById(R.id.ProfileAddressTextView)
+        phoneNumberTextView = view.findViewById(R.id.PhoneNumberTextView)
+        emailTextView = view.findViewById(R.id.ProfileEmailTextView)
 
         view.mainRecyclerView.adapter = RestaurantAdapter(this)
         view.mainRecyclerView.layoutManager = LinearLayoutManager(activity)
@@ -59,8 +66,11 @@ class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener 
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         mUserViewModel.readAllData.observe(viewLifecycleOwner, Observer { user ->
             user.forEach{
-                if (it.id == 1) {
+                if (it.id == userID) {
                     userNameTextView.text = it.userName
+                    addressTextView.text = it.address
+                    phoneNumberTextView.text = it.phoneNumber
+                    emailTextView.text = it.emailAddress
                 }
             }
         })

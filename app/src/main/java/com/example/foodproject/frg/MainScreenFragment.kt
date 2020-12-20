@@ -1,21 +1,19 @@
 package com.example.foodproject.frg
 
 import android.os.Bundle
-import android.text.Layout
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodproject.*
 import com.example.foodproject.repository.Repository
-import kotlinx.android.synthetic.main.fragment_main_screen.*
 import kotlinx.android.synthetic.main.fragment_main_screen.view.*
 
 /**
@@ -26,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_main_screen.view.*
 class MainScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener {
 
     private lateinit var viewModel: RestaurantViewModel
+    private lateinit var favoriteIcon: ImageView
 
     // creating a list of Tea objects to be displayed inside the recycler view
     //private var exampleList = generateDummyList(500)
@@ -45,6 +44,11 @@ class MainScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener {
         generateList()
 
         setupRecyclerView(view)
+
+        /*favoriteIcon = view.findViewById(R.id.favorite_icon)
+        favoriteIcon.setOnClickListener {
+            Toast.makeText(context, "Favorite icon clicked", Toast.LENGTH_SHORT).show()
+        }*/
 
         return view
     }

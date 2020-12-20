@@ -22,7 +22,7 @@ class RestaurantAdapter (//private var restaurantList: List<RestaurantItem>,
 
         return  RestaurantViewHolder(itemView)
     }
-    // mindig ujrahivodik
+    // gets called again every time
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
         val currentItem = restaurantList[position]
 
@@ -53,9 +53,6 @@ class RestaurantAdapter (//private var restaurantList: List<RestaurantItem>,
         val textViewAddress: TextView = itemView.restaurantAddressTextView
         val textViewPrice: TextView = itemView.restaurantPriceTextView
         val view = itemView
-        /*val imageView: ImageView = itemView.findViewById(R.id.restaurantImageView)
-        val textView1: TextView = itemView.findViewById(R.id.restaurantTitleTextView)
-        val textView2: TextView = itemView.findViewById(R.id.restaurantAddressTextView)*/
 
         init
         {

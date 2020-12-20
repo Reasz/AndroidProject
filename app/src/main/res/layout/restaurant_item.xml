@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:background="@color/colorBackground">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
         android:background="@color/colorAccentDark"
         android:gravity="center"
-        >
+        android:padding="8dp">
 
         <ImageView
             android:id="@+id/restaurantImageView"
@@ -17,41 +18,46 @@
             android:layout_height="80dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:src="@drawable/ic_profile"
             android:contentDescription="@string/restaurant_picture"
-            />
-        
+            android:src="@drawable/ic_profile" />
+
         <TextView
             android:id="@+id/restaurantTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/restaurant_title"
             android:layout_below="@id/restaurantImageView"
+            android:gravity="center"
+            android:text="@string/restaurant_title"
             android:textColor="@color/colorBackground"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:gravity="center"
-           />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/restaurantAddressTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/restaurant_address"
             android:layout_below="@+id/restaurantTitleTextView"
+            android:text="@string/restaurant_address"
             android:textColor="@color/colorBackground"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/restaurantPriceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/restaurant_price"
             android:layout_below="@+id/restaurantAddressTextView"
+            android:text="@string/restaurant_price"
             android:textColor="@color/colorBackground"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/favorite_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/favorite_icon"
+            android:src="@drawable/ic_favorite_border" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
