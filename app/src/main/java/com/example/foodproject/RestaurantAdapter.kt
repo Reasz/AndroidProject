@@ -40,6 +40,7 @@ class RestaurantAdapter(//private var restaurantList: List<RestaurantItem>,
         Glide.with(holder.view)
             .load(currentItem.image_url)
             .placeholder(R.mipmap.milky_way)
+            .error(R.drawable.ic_broken_image)
             .into(holder.imageView)
 
         //holder.imageView.setImageResource(R.drawable.ic_list_bulleted)

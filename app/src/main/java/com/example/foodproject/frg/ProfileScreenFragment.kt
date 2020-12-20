@@ -52,6 +52,7 @@ class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener 
         // Glide image loading
         Glide.with(requireContext())
             .load(R.mipmap.stars)
+            .error(R.drawable.ic_broken_image)
             .into(yourImageView)
 
         initialise(view)

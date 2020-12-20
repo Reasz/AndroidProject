@@ -40,7 +40,9 @@ class DetailScreenFragment : Fragment() {
 
         // Glide image loading
         Glide.with(requireContext())
-            .load(R.mipmap.milky_way)
+            .load(args.selectedRestaurant.image_url)
+            .placeholder(R.mipmap.milky_way)
+            .error(R.drawable.ic_broken_image)
             .into(yourImageView)
 
         view.restaurantDetailPhoneTextView.setOnClickListener{
