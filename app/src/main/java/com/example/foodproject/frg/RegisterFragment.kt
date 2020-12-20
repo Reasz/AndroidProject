@@ -23,6 +23,9 @@ class RegisterFragment : Fragment() {
     private lateinit var mUserViewModel:UserViewModel
     private lateinit var registerButton: Button
     private lateinit var usernameEditText: EditText
+    private lateinit var addressEditText: EditText
+    private lateinit var phoneNumberEditText: EditText
+    private lateinit var emailAddressEditText: EditText
     private lateinit var passwordEditText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,28 +45,7 @@ class RegisterFragment : Fragment() {
 
         registerButton.setOnClickListener {
 
-            //val usernameText = usernameEditText.text.toString()
-            //val passwordText = passwordEditText.text.toString()
             insertDataToDatabase()
-            /*when {
-                usernameText.isEmpty() -> {
-                    usernameEditText.error = "Username required"
-                }
-                usernameText.length < 3 -> {
-                    usernameEditText.error = "Username must be at least 3 letters"
-                }
-                passwordText.isEmpty() -> {
-                    passwordEditText.error = "Password required"
-                }
-                passwordText.length < 4 -> {
-                    passwordEditText.error = "Password must be at least 4 letters"
-                }
-                else -> {
-                    insertDataToDatabase()
-                    Navigation.findNavController(view)
-                        .navigate(R.id.action_registerFragment_to_mainScreenFragment2)
-                }
-            }*/
         }
 
         return view
@@ -71,12 +53,15 @@ class RegisterFragment : Fragment() {
 
     private fun insertDataToDatabase() {
         val username = usernameEditText.text.toString()
+        val address = addressEditText.text.toString()
+        val phoneNumber = phoneNumberEditText.text.toString()
+        val email = emailAddressEditText.text.toString()
         val password = passwordEditText.text.toString()
 
         if (inputCheck(username, password))
         {
             //Create user object
-            val user = User(0, username, password)
+            val user = User(0, username, address, phoneNumber, email, password)
             // add data to database
             mUserViewModel.addUser(user)
             Toast.makeText(requireContext(), "Registration success", Toast.LENGTH_SHORT).show()
@@ -94,6 +79,9 @@ class RegisterFragment : Fragment() {
     private fun initialise(view: View) {
         registerButton = view.findViewById(R.id.buttonRegisterRegister)
         usernameEditText = view.findViewById(R.id.editTextRegisterUsername)
+        addressEditText = view.findViewById(R.id.editTextRegisterAddress)
+        phoneNumberEditText = view.findViewById(R.id.editTextRegisterPhoneNumber)
+        emailAddressEditText = view.findViewById(R.id.editTextRegisterEmail)
         passwordEditText = view.findViewById(R.id.editTextRegisterPassword)
     }
 
