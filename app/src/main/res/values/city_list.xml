@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cities_array">
+        <item>Aspen</item>
+        <item>Dallas</item>
+        <item>Greenwood</item>
+        <item>Hanalei</item>
+        <item>Evergreen</item>
+        <item>Upper Arlington</item>
+        <item>Westminster</item>
+    </string-array>
+</resources>

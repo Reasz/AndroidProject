@@ -9,20 +9,12 @@ import retrofit2.http.Query
 
 interface RestaurantApi {
 
-    @GET("restaurants/1281")  //restaurants/1281
-    suspend fun getPost():Response<RestaurantItem>
-
-    @GET("restaurants/{postNumber}")
-    suspend fun getPost2(
-        @Path("postNumber") number:  Int
-    ):Response<RestaurantItem>
-
     @GET("restaurants")
-    suspend fun getCustomPost(
+    suspend fun getCityPost(
         @Query("city") city: String
-    ): Response<List<RestaurantItem>>
+    ): Response<RestaurantData>
 
     @GET("restaurants")
-    suspend fun getPost2():Response<RestaurantData>
+    suspend fun getAllPost():Response<RestaurantData>
 
 }

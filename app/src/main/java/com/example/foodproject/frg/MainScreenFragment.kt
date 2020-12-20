@@ -6,8 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -21,10 +20,11 @@ import kotlinx.android.synthetic.main.fragment_main_screen.view.*
  * Use the [MainScreenFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MainScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener {
+class MainScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener,
+    AdapterView.OnItemSelectedListener {
 
     private lateinit var viewModel: RestaurantViewModel
-    private lateinit var favoriteIcon: ImageView
+    private lateinit var viewModel2: RestaurantViewModel
 
     // creating a list of Tea objects to be displayed inside the recycler view
     //private var exampleList = generateDummyList(500)
@@ -41,14 +41,28 @@ class MainScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_main_screen, container, false)
 
-        generateList()
+        ///////////////////////////////
+        val spinner: Spinner = view.findViewById(R.id.spinner)
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.cities_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spinner.adapter = adapter
+        }
+
+        spinner.onItemSelectedListener = this
+        ///////////////////////////////
+
+        //generateList()
+        //generateNewList("Dallas")
+        //generateNewList("Hanalei")
 
         setupRecyclerView(view)
-
-        /*favoriteIcon = view.findViewById(R.id.favorite_icon)
-        favoriteIcon.setOnClickListener {
-            Toast.makeText(context, "Favorite icon clicked", Toast.LENGTH_SHORT).show()
-        }*/
 
         return view
     }
@@ -60,14 +74,29 @@ class MainScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener {
         findNavController().navigate(action)
     }
 
+    private fun generateNewList(city: String) {
+        val repository = Repository()
+        val viewModelFactory = RestaurantViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(RestaurantViewModel::class.java)
+
+        viewModel.getCityPosts(city)
+        viewModel.myCityPosts.observe(viewLifecycleOwner, Observer { response ->
+            if (response.isSuccessful) {
+                response.body()?.restaurants?.let { restaurantAdapter.setData(it) }
+            } else {
+                Toast.makeText(activity, response.code(), Toast.LENGTH_SHORT).show()
+                Log.d("Response ERROR", response.errorBody().toString())
+            }
+        })
+    }
+
     private fun generateList() {
         val repository = Repository()
         val viewModelFactory = RestaurantViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(RestaurantViewModel::class.java)
 
-        //viewModel.getCustomPosts("Dallas")
-        viewModel.getCustommPosts2()
-        viewModel.myCustomPosts2.observe(viewLifecycleOwner, Observer { response ->
+        viewModel.getAllPosts()
+        viewModel.myAllPost.observe(viewLifecycleOwner, Observer { response ->
             if (response.isSuccessful) {
                 response.body()?.restaurants?.let { restaurantAdapter.setData(it) }
             } else {
@@ -101,6 +130,16 @@ class MainScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener {
         view.mainRecyclerView.adapter = restaurantAdapter
         view.mainRecyclerView.layoutManager = LinearLayoutManager(activity)
         view.mainRecyclerView.setHasFixedSize(true)
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val value : String = parent!!.getItemAtPosition(position).toString()
+        //Log.d("TAG", value)
+        generateNewList(value)
     }
 
 }

@@ -11,5 +11,6 @@ data class User (
     val address: String,
     val phoneNumber:String,
     val emailAddress:String,
-    val password: String
+    val password: String,
+    var favorites: String = ""
 )

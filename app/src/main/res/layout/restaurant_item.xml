@@ -53,11 +53,20 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/favorite_icon"
+            android:id="@+id/favorite_icon_border"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:contentDescription="@string/favorite_icon"
-            android:src="@drawable/ic_favorite_border" />
+            android:src="@drawable/ic_favorite_border"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/favorite_icon_filled"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/favorite_icon"
+            android:src="@drawable/ic_favorite"
+            android:visibility="invisible"/>
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

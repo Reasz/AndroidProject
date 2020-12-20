@@ -7,19 +7,11 @@ import retrofit2.Response
 
 class Repository {
 
-    suspend fun getPost():Response<RestaurantItem> {
-        return RetrofitInstance.api.getPost()
+    suspend fun getCityPosts(city: String): Response<RestaurantData> {
+        return RetrofitInstance.api.getCityPost(city)
     }
 
-    suspend fun getPost2(number: Int): Response<RestaurantItem> {
-        return  RetrofitInstance.api.getPost2(number)
-    }
-
-    suspend fun getCustomPosts(city: String): Response<List<RestaurantItem>> {
-        return RetrofitInstance.api.getCustomPost(city)
-    }
-
-    suspend fun getCustomPosts2():Response<RestaurantData> {
-        return RetrofitInstance.api.getPost2()
+    suspend fun getAllPosts():Response<RestaurantData> {
+        return RetrofitInstance.api.getAllPost()
     }
 }
