@@ -58,6 +58,12 @@ class DetailScreenFragment : Fragment() {
             startActivity(intent)
         }
 
+        view.restaurantDetailReserveButton.setOnClickListener{
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(args.selectedRestaurant.mobile_reserve_url)
+            startActivity(intent)
+        }
+
         return view
     }
 
