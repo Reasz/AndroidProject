@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.example.foodproject.R
 import com.example.foodproject.RestaurantAdapter
 import com.example.foodproject.RestaurantItem
+import com.example.foodproject.data.UserViewModel
 import kotlinx.android.synthetic.main.fragment_main_screen.view.*
 
 /**
@@ -23,6 +28,8 @@ import kotlinx.android.synthetic.main.fragment_main_screen.view.*
 class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener {
 
     private val exampleList = generateDummyList(10)
+    private lateinit var mUserViewModel: UserViewModel
+    private lateinit var userNameTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +50,20 @@ class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener 
             .load(R.mipmap.stars)
             .into(yourImageView)
 
+        userNameTextView = view.findViewById(R.id.ProfileNameTextView)
+
         view.mainRecyclerView.adapter = RestaurantAdapter(this)
         view.mainRecyclerView.layoutManager = LinearLayoutManager(activity)
         view.mainRecyclerView.setHasFixedSize(true)
+
+        mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        mUserViewModel.readAllData.observe(viewLifecycleOwner, Observer { user ->
+            user.forEach{
+                if (it.id == 1) {
+                    userNameTextView.text = it.userName
+                }
+            }
+        })
 
         return view
     }
