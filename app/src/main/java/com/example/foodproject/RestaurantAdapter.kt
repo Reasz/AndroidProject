@@ -10,10 +10,12 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.restaurant_item.view.*
 
 
-class RestaurantAdapter (private val restaurantList: List<RestaurantItem>,
+class RestaurantAdapter (//private var restaurantList: List<RestaurantItem>,
                          private val listener: OnItemClickListener
                          )
     : RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
+
+    private var restaurantList = emptyList<RestaurantItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.restaurant_item, parent, false)
@@ -72,5 +74,14 @@ class RestaurantAdapter (private val restaurantList: List<RestaurantItem>,
     interface OnItemClickListener
     {
         fun onItemClick(position: Int)
+    }
+
+    fun setData(newList: List<RestaurantItem>) {
+        restaurantList = newList
+        notifyDataSetChanged()
+    }
+
+    fun getDataAt(position: Int):RestaurantItem{
+        return  restaurantList[position]
     }
 }

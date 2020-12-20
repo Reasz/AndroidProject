@@ -43,7 +43,7 @@ class ProfileScreenFragment : Fragment(), RestaurantAdapter.OnItemClickListener 
             .load(R.mipmap.stars)
             .into(yourImageView)
 
-        view.mainRecyclerView.adapter = RestaurantAdapter(exampleList, this)
+        view.mainRecyclerView.adapter = RestaurantAdapter(this)
         view.mainRecyclerView.layoutManager = LinearLayoutManager(activity)
         view.mainRecyclerView.setHasFixedSize(true)
 
